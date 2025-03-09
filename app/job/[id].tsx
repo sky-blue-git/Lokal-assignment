@@ -1,10 +1,25 @@
-import { View, Text, StyleSheet } from 'react-native';
-import { useLocalSearchParams } from 'expo-router';
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { useLocalSearchParams, useNavigation } from 'expo-router';
 import { MaterialIcons } from '@expo/vector-icons';
+import { useEffect } from 'react';
 
 export default function JobDetailsScreen() {
   const { id, company_name, title, place, salary, jobType, experience, qualification, whatsapp_no } =
     useLocalSearchParams();
+
+  const navigation = useNavigation();
+  useEffect(() => {
+    navigation.setOptions({
+      title: 'Job Description',
+      headerLeft: () => (
+        <TouchableOpacity
+          onPress={() => navigation.goBack()}
+        >
+          <MaterialIcons name="arrow-back" size={24} color="#000000" />
+        </TouchableOpacity>
+      ),
+    });
+  }, []);
 
   return (
     <View style={styles.container}>
